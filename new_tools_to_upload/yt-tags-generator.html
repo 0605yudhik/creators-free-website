@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free YouTube Tag & Keyword Generator | CreatorsFree.in</title>
+    <meta name="description" content="Generate high-ranking YouTube video tags and SEO keywords for free. 1-click copy formatted tags for YouTube Studio to boost video ranking.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <style>
+        .tool-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            border-color: #38bdf8;
+        }
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 16px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            min-height: 120px;
+            margin-bottom: 16px;
+        }
+        .tag-pill {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tag-pill .remove-tag {
+            cursor: pointer;
+            color: #ef4444;
+            font-weight: 800;
+        }
+        .btn-action {
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+        .badge-cat {
+            padding: 6px 14px;
+            background: #334155;
+            color: #f8fafc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+        }
+        .badge-cat:hover {
+            background: #38bdf8;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #38bdf8;">CreatorsFree.in ⚡</a>
+            <a href="index.html" class="btn-secondary" style="font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 900px; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">🏷️ FREE YOUTUBE SEO TOOL</span>
+            <h1 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-top: 10px;">YouTube Tag & Keyword Generator</h1>
+            <p style="color: #94a3b8; font-size: 1.05rem;">Enter your video topic or keywords to generate high-volume SEO tags for YouTube Studio.</p>
+        </div>
+
+        <div class="tool-card">
+            <div class="form-group">
+                <label class="form-label">Video Topic / Main Keyword:</label>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <input type="text" id="topicInput" class="form-input" placeholder="e.g. How to edit reels, BGMI tips, iPhone review..." style="flex: 1; min-width: 250px;">
+                    <button onclick="generateTags()" class="btn-action">✨ Generate Tags</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <span style="font-size: 0.85rem; color: #94a3b8; margin-right: 10px;">Popular Niches:</span>
+                <div style="display: inline-flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+                    <button onclick="setTopic('YouTube Growth')" class="badge-cat">📺 YouTube Growth</button>
+                    <button onclick="setTopic('BGMI Gaming')" class="badge-cat">🎮 BGMI Gaming</button>
+                    <button onclick="setTopic('Video Editing Hacks')" class="badge-cat">🎬 Video Editing</button>
+                    <button onclick="setTopic('Tech Review')" class="badge-cat">📱 Tech Review</button>
+                    <button onclick="setTopic('Vlog')" class="badge-cat">✈️ Daily Vlog</button>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label class="form-label" style="margin: 0;">Generated Tags (<span id="tagCount">0</span> tags | <span id="charCount">0</span>/500 chars):</label>
+                <button onclick="copyAllTags()" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">📋 Copy All Tags</button>
+            </div>
+
+            <div id="tagsBox" class="tags-container">
+                <span style="color: #64748b; font-size: 0.95rem; font-style: italic; margin: auto;">Enter a topic above and click 'Generate Tags'...</span>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button onclick="copyFormattedCSV()" class="btn-action" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff;">📋 Copy CSV Format (YouTube Studio)</button>
+                <button onclick="clearTags()" class="btn-secondary">🗑️ Clear All</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentTags = [];
+
+        const tagLibrary = {
+            'youtube': ['youtube growth tips', 'how to grow youtube channel', 'youtube algorithm 2026', 'get more views on youtube', 'viral video hooks', 'youtube SEO tips', 'youtube studio tags', 'how to get subscribers fast'],
+            'bgmi': ['bgmi new update', 'bgmi sensitivity settings', 'bgmi gameplay 4k', 'bgmi montage 60fps', 'bgmi pubg tips and tricks', 'bgmi headshot config', 'bgmi best controls'],
+            'video editing': ['video editing tutorial', 'capcut editing hacks', 'premiere pro text effect', 'reels editing trend', 'vn video editor tutorial', 'smooth velocity edit', 'clean audio editing'],
+            'tech': ['tech review 2026', 'unboxing hindi', 'best smartphone under 20000', 'gadgets buy or not', 'tech news hindi', 'hidden features tips'],
+            'vlog': ['daily vlog hindi', 'family vlog', 'travel vlog 4k', 'my first vlog viral tips', 'vlogging setup budget']
+        };
+
+        function setTopic(topic) {
+            document.getElementById('topicInput').value = topic;
+            generateTags();
+        }
+
+        function generateTags() {
+            const query = document.getElementById('topicInput').value.trim().toLowerCase();
+            if(!query) {
+                alert('Kripya koi topic ya keyword dalein!');
+                return;
+            }
+
+            let result = [query, query + ' 2026', query + ' in hindi', 'how to ' + query, 'best ' + query, query + ' tutorial', query + ' tips'];
+            
+            // Search library match
+            for (let cat in tagLibrary) {
+                if (query.includes(cat)) {
+                    result = result.concat(tagLibrary[cat]);
+                }
+            }
+
+            // Remove duplicates
+            currentTags = [...new Set(result)].slice(0, 18);
+            renderTags();
+        }
+
+        function renderTags() {
+            const box = document.getElementById('tagsBox');
+            if (currentTags.length === 0) {
+                box.innerHTML = '<span style="color: #64748b; font-size: 0.95rem; font-style: italic; margin: auto;">Enter a topic above...</span>';
+                document.getElementById('tagCount').innerText = 0;
+                document.getElementById('charCount').innerText = 0;
+                return;
+            }
+
+            box.innerHTML = '';
+            let totalChars = currentTags.join(', ').length;
+
+            currentTags.forEach((tag, idx) => {
+                const pill = document.createElement('div');
+                pill.className = 'tag-pill';
+                pill.innerHTML = `<span>${tag}</span><span class="remove-tag" onclick="removeTag(${idx})">×</span>`;
+                box.appendChild(pill);
+            });
+
+            document.getElementById('tagCount').innerText = currentTags.length;
+            document.getElementById('charCount').innerText = totalChars;
+        }
+
+        function removeTag(idx) {
+            currentTags.splice(idx, 1);
+            renderTags();
+        }
+
+        function copyFormattedCSV() {
+            if (currentTags.length === 0) return alert('No tags to copy!');
+            const text = currentTags.join(', ');
+            navigator.clipboard.writeText(text);
+            alert('Copied formatted tags to clipboard! Paste directly into YouTube Studio.');
+        }
+
+        function copyAllTags() {
+            copyFormattedCSV();
+        }
+
+        function clearTags() {
+            currentTags = [];
+            renderTags();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Sponsorship Rate Calculator | CreatorsFree.in</title>
+    <meta name="description" content="Calculate fair brand sponsorship rates for YouTube Videos, Shorts, and Instagram Reels in India. Free creator rate card tool.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <style>
+        .tool-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+        .form-select, .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .rate-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .rate-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+        .rate-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #10b981;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #38bdf8;">CreatorsFree.in ⚡</a>
+            <a href="index.html" class="btn-secondary" style="font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 900px; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">💼 BRAND DEALS & MONETIZATION</span>
+            <h1 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-top: 10px;">Sponsorship Rate Card Calculator</h1>
+            <p style="color: #94a3b8; font-size: 1.05rem;">Calculate how much to charge brands for Instagram Reels, YouTube Dedicated Videos & Shorts.</p>
+        </div>
+
+        <div class="tool-card">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                    <label class="form-label">Select Platform & Deal Type:</label>
+                    <select id="dealType" class="form-select" onchange="calcRate()">
+                        <option value="yt_dedicated">YouTube Dedicated Video (16:9)</option>
+                        <option value="yt_integrated">YouTube Integrated Mention (60s)</option>
+                        <option value="yt_shorts">YouTube Shorts (60s)</option>
+                        <option value="ig_reel">Instagram Reel / Video</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Creator Niche / Category:</label>
+                    <select id="nicheSelect" class="form-select" onchange="calcRate()">
+                        <option value="finance">Finance & Investing (High CPM)</option>
+                        <option value="tech">Tech & Gadgets (High CPM)</option>
+                        <option value="education">Education & Career (Medium CPM)</option>
+                        <option value="gaming">Gaming & Esports (Medium CPM)</option>
+                        <option value="vlog">Lifestyle & Travel Vlog (Standard CPM)</option>
+                        <option value="comedy">Entertainment & Memes (Standard CPM)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Average Views Per Post/Video: <strong id="viewsVal" style="color: #38bdf8;">25,000 Views</strong></label>
+                <input type="range" id="viewsRange" min="2000" max="500000" step="1000" value="25000" class="form-input" style="padding: 0; cursor: pointer;" oninput="updateViews()">
+            </div>
+
+            <div class="rate-card-grid">
+                <div class="rate-card">
+                    <div style="font-size: 0.85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Minimum Fair Rate</div>
+                    <div class="rate-price" id="minRate">₹4,000</div>
+                    <p style="color: #64748b; font-size: 0.85rem; margin: 0;">For new sponsors / bulk deals</p>
+                </div>
+
+                <div class="rate-card" style="border-color: #10b981; background: rgba(16, 185, 129, 0.05);">
+                    <div style="font-size: 0.85rem; color: #10b981; font-weight: 800; text-transform: uppercase;">RECOMMENDED RATE 🔥</div>
+                    <div class="rate-price" id="recRate" style="color: #10b981; font-size: 2.2rem;">₹7,500</div>
+                    <p style="color: #94a3b8; font-size: 0.85rem; margin: 0;">Standard market pricing</p>
+                </div>
+
+                <div class="rate-card">
+                    <div style="font-size: 0.85rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Premium Brand Rate</div>
+                    <div class="rate-price" id="maxRate" style="color: #eab308;">₹12,000</div>
+                    <p style="color: #64748b; font-size: 0.85rem; margin: 0;">For top brands & exclusivity</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const nicheMultiplier = {
+            'finance': 1.8,
+            'tech': 1.5,
+            'education': 1.2,
+            'gaming': 1.0,
+            'vlog': 1.0,
+            'comedy': 0.9
+        };
+
+        const dealMultiplier = {
+            'yt_dedicated': 1.0,
+            'yt_integrated': 0.5,
+            'yt_shorts': 0.35,
+            'ig_reel': 0.45
+        };
+
+        function updateViews() {
+            const val = parseInt(document.getElementById('viewsRange').value);
+            document.getElementById('viewsVal').innerText = val.toLocaleString('en-IN') + ' Views';
+            calcRate();
+        }
+
+        function calcRate() {
+            const views = parseInt(document.getElementById('viewsRange').value);
+            const niche = document.getElementById('nicheSelect').value;
+            const deal = document.getElementById('dealType').value;
+
+            // Base CPV (Cost Per View) formula in INR
+            // E.g., for dedicated video: 0.4 to 0.7 rupees per view
+            const baseCPV = 0.5;
+            const mult = (nicheMultiplier[niche] || 1.0) * (dealMultiplier[deal] || 1.0);
+
+            const rec = Math.round(views * baseCPV * mult);
+            const min = Math.round(rec * 0.65);
+            const max = Math.round(rec * 1.45);
+
+            document.getElementById('minRate').innerText = '₹' + min.toLocaleString('en-IN');
+            document.getElementById('recRate').innerText = '₹' + rec.toLocaleString('en-IN');
+            document.getElementById('maxRate').innerText = '₹' + max.toLocaleString('en-IN');
+        }
+
+        calcRate();
+    </script>
+</body>
+</html>

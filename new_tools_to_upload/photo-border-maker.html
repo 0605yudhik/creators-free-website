@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Thumbnail Photo Stroke & Glow Maker | CreatorsFree.in</title>
+    <meta name="description" content="Add YouTube thumbnail style white/yellow border outlines and glow effects to your transparent PNG photos online for free.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <style>
+        .tool-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .canvas-box {
+            background: repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%) 50% / 20px 20px;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 8px;
+        }
+        .ctrl-group {
+            margin-bottom: 16px;
+        }
+        .ctrl-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #f8fafc;
+            display: block;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #38bdf8;">CreatorsFree.in ⚡</a>
+            <a href="index.html" class="btn-secondary" style="font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 1000px; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">🖼️ THUMBNAIL OUTLINE GENERATOR</span>
+            <h1 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-top: 10px;">Thumbnail Photo Stroke & Glow Maker</h1>
+            <p style="color: #94a3b8; font-size: 1.05rem;">Add viral YouTube-style white/yellow outlines and neon glow to your cutout photos.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+            <div class="tool-card" style="margin-bottom: 0;">
+                <div class="ctrl-group">
+                    <label class="ctrl-label">1. Upload Cutout Photo (PNG):</label>
+                    <input type="file" id="imgUpload" accept="image/*" onchange="loadImg(event)" style="color: #cbd5e1;">
+                </div>
+
+                <div class="ctrl-group">
+                    <label class="ctrl-label">Stroke Border Width: <span id="strokeVal">8px</span></label>
+                    <input type="range" id="strokeWidth" min="0" max="25" value="8" style="width: 100%;" oninput="render()">
+                </div>
+
+                <div class="ctrl-group">
+                    <label class="ctrl-label">Stroke Color:</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="color" id="strokeColor" value="#ffffff" onchange="render()" style="height: 38px; width: 60px; cursor: pointer;">
+                        <button class="btn-secondary" onclick="setStroke('#ffffff')">White</button>
+                        <button class="btn-secondary" onclick="setStroke('#facc15')">Yellow</button>
+                        <button class="btn-secondary" onclick="setStroke('#38bdf8')">Cyan</button>
+                    </div>
+                </div>
+
+                <div class="ctrl-group">
+                    <label class="ctrl-label">Glow Blur Radius: <span id="glowVal">15px</span></label>
+                    <input type="range" id="glowRadius" min="0" max="40" value="15" style="width: 100%;" oninput="render()">
+                </div>
+
+                <div class="ctrl-group">
+                    <label class="ctrl-label">Glow Color:</label>
+                    <input type="color" id="glowColor" value="#facc15" onchange="render()" style="height: 38px; width: 60px; cursor: pointer;">
+                </div>
+
+                <button onclick="downloadPNG()" class="btn" style="width: 100%; text-align: center; margin-top: 10px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; border: none;">⬇️ Download Transparent PNG</button>
+            </div>
+
+            <div class="canvas-box">
+                <canvas id="outCanvas" width="500" height="500"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('outCanvas');
+        const ctx = canvas.getContext('2d');
+        let userImg = null;
+
+        function setStroke(hex) {
+            document.getElementById('strokeColor').value = hex;
+            render();
+        }
+
+        function loadImg(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                userImg = new Image();
+                userImg.onload = function() {
+                    canvas.width = userImg.width;
+                    canvas.height = userImg.height;
+                    render();
+                };
+                userImg.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function render() {
+            if(!userImg) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#64748b';
+                ctx.font = '16px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Upload a transparent PNG photo on left to start', canvas.width/2, canvas.height/2);
+                return;
+            }
+
+            const sw = parseInt(document.getElementById('strokeWidth').value);
+            const sc = document.getElementById('strokeColor').value;
+            const gr = parseInt(document.getElementById('glowRadius').value);
+            const gc = document.getElementById('glowColor').value;
+
+            document.getElementById('strokeVal').innerText = sw + 'px';
+            document.getElementById('glowVal').innerText = gr + 'px';
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Glow
+            if(gr > 0) {
+                ctx.shadowColor = gc;
+                ctx.shadowBlur = gr;
+            } else {
+                ctx.shadowBlur = 0;
+            }
+
+            // Draw Stroke by rendering silhouette in multiple offsets
+            if(sw > 0) {
+                const offCanvas = document.createElement('canvas');
+                offCanvas.width = canvas.width;
+                offCanvas.height = canvas.height;
+                const offCtx = offCanvas.getContext('2d');
+                offCtx.drawImage(userImg, 0, 0);
+                offCtx.globalCompositeOperation = 'source-in';
+                offCtx.fillStyle = sc;
+                offCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for(let angle = 0; angle < 360; angle += 30) {
+                    const rad = angle * Math.PI / 180;
+                    const dx = Math.cos(rad) * sw;
+                    const dy = Math.sin(rad) * sw;
+                    ctx.drawImage(offCanvas, dx, dy);
+                }
+            }
+
+            // Reset shadow & draw main image
+            ctx.shadowBlur = 0;
+            ctx.drawImage(userImg, 0, 0);
+        }
+
+        render();
+    </script>
+</body>
+</html>

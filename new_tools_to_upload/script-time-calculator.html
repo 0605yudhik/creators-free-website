@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Duration & Word Counter for Shorts | CreatorsFree.in</title>
+    <meta name="description" content="Calculate speech duration in seconds for YouTube Shorts, Reels, and videos. Check word count and reading speed online.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <style>
+        .tool-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #38bdf8;
+            margin-top: 6px;
+        }
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+        .script-area {
+            width: 100%;
+            height: 220px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.6;
+            outline: none;
+            resize: vertical;
+        }
+        .script-area:focus {
+            border-color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #38bdf8;">CreatorsFree.in ⚡</a>
+            <a href="index.html" class="btn-secondary" style="font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 900px; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">⏱️ SHORTS & REELS TIMER</span>
+            <h1 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-top: 10px;">Script Duration & Word Counter</h1>
+            <p style="color: #94a3b8; font-size: 1.05rem;">Paste your video script to calculate exact spoken duration for 30s/60s YouTube Shorts and Reels.</p>
+        </div>
+
+        <div class="tool-card">
+            <textarea id="scriptInput" class="script-area" placeholder="Paste your video script here to calculate duration..." oninput="calculateScript()"></textarea>
+
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-lbl">Word Count</div>
+                    <div class="stat-val" id="wordCount">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-lbl">Normal Speed (135 WPM)</div>
+                    <div class="stat-val" id="timeNormal" style="color: #10b981;">0s</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-lbl">Fast Paced (165 WPM)</div>
+                    <div class="stat-val" id="timeFast" style="color: #f59e0b;">0s</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-lbl">Shorts Status</div>
+                    <div class="stat-val" id="shortsFit" style="font-size: 1.2rem; margin-top: 12px; color: #38bdf8;">Ready</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calculateScript() {
+            const text = document.getElementById('scriptInput').value.trim();
+            if(!text) {
+                document.getElementById('wordCount').innerText = '0';
+                document.getElementById('timeNormal').innerText = '0s';
+                document.getElementById('timeFast').innerText = '0s';
+                document.getElementById('shortsFit').innerText = 'Ready';
+                return;
+            }
+
+            const words = text.split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('wordCount').innerText = words;
+
+            // 135 WPM normal speed = 2.25 words per second
+            const normalSecs = Math.round(words / 2.25);
+            // 165 WPM fast speed = 2.75 words per second
+            const fastSecs = Math.round(words / 2.75);
+
+            document.getElementById('timeNormal').innerText = formatTime(normalSecs);
+            document.getElementById('timeFast').innerText = formatTime(fastSecs);
+
+            const fit = document.getElementById('shortsFit');
+            if(normalSecs <= 30) {
+                fit.innerText = '✅ 30s Shorts';
+                fit.style.color = '#10b981';
+            } else if(normalSecs <= 60) {
+                fit.innerText = '✅ 60s Shorts';
+                fit.style.color = '#38bdf8';
+            } else {
+                fit.innerText = '📹 Long Video';
+                fit.style.color = '#f59e0b';
+            }
+        }
+
+        function formatTime(secs) {
+            if(secs < 60) return secs + 's';
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return `${m}m ${s}s`;
+        }
+    </script>
+</body>
+</html>
