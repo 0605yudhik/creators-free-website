@@ -1,0 +1,71 @@
+<header class="site-header" style="background: var(--bg-secondary, #0f172a); border-bottom: 1px solid var(--border-color, #1e293b); padding: 14px 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px);">
+    <div class="container" style="max-width: 1240px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+        
+        <!-- Logo with CF Favicon -->
+        <a href="index.html" style="text-decoration: none; font-size: 1.45rem; font-weight: 800; color: var(--text-primary, #ffffff); display: flex; align-items: center; gap: 10px;">
+            <img src="images/favicon.png" alt="CF Logo" style="height: 36px; width: auto; object-fit: contain; border-radius: 6px;">
+            <span>CREATORS <span style="color: #ff6b00;">FREE</span></span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav class="nav-links" style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
+            
+            <!-- 1. HOME -->
+            <a href="index.html" style="color: var(--text-primary, #ffffff); text-decoration: none; font-size: 0.95rem; font-weight: 700;">Home</a>
+            
+            <!-- 2. CREATOR TOOLS -->
+            <div class="dropdown" style="position: relative; display: inline-block;">
+                <a href="tools.html" class="dropdown-trigger" style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: 700; padding-bottom: 5px; cursor: pointer;">
+                    🛠️ Creator Tools ▾
+                </a>
+                <div class="dropdown-content">
+                    <a href="ai-audio-mastering.html" style="color: #c084fc; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 800;">🎙️ Auto Voice Studio Master</a>
+                    <a href="yt-tags-generator.html" style="color: #38bdf8; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">🏷️ YouTube Tag Generator</a>
+                    <a href="yt-title-generator.html" style="color: #eab308; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">🎯 Viral Title & Hook Generator</a>
+                    <a href="script-time-calculator.html" style="color: #10b981; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">⏱️ Script Duration & Timer</a>
+                    <a href="sponsorship-calculator.html" style="color: #c084fc; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">💼 Sponsorship Rate Calculator</a>
+                    <a href="photo-border-maker.html" style="color: #38bdf8; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">🖼️ Photo Stroke & Glow Maker</a>
+                    <a href="youtube-thumbnail-maker.html" style="color: #ef4444; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 700;">🔍 1080p Thumbnail Extractor</a>
+                    <a href="a4-photo-printer.html" style="color: #38bdf8; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 600;">🖨️ A4 Passport Photo Printer</a>
+                    <a href="resume-creator.html" style="color: var(--text-primary, #ffffff); padding: 10px 16px; text-decoration: none; display: block; font-size: 0.9rem; font-weight: 600;">📄 Mobile Resume Builder</a>
+                </div>
+            </div>
+
+            <!-- 3. FREE RESOURCES -->
+            <a href="free-resources-directory.html" style="color: #10b981; text-decoration: none; font-size: 0.95rem; font-weight: 700;">🌐 Free Resources</a>
+
+            <!-- 4. BLOGS -->
+            <a href="blog.html" style="color: var(--text-primary, #ffffff); text-decoration: none; font-size: 0.95rem; font-weight: 700;">📝 Blogs</a>
+
+            <!-- Theme Switcher Button -->
+            <button onclick="toggleTheme()" class="theme-toggle-btn" title="Switch Theme">
+                ☀️ Light Mode
+            </button>
+
+        </nav>
+    </div>
+
+    <!-- Dropdown Styling -->
+    <style>
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--bg-secondary, #1e293b);
+            min-width: 270px;
+            box-shadow: var(--shadow-card, 0px 10px 25px rgba(0,0,0,0.6));
+            border: 1px solid var(--border-color, #334155);
+            border-radius: 12px;
+            padding: 8px 0;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown:hover .dropdown-content,
+        .dropdown.open .dropdown-content {
+            display: block !important;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--bg-card-hover, #334155);
+        }
+    </style>
+</header>

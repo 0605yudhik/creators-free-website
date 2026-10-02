@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto AI Voice Enhancer & Audio Mastering Studio | CreatorsFree.in</title>
+    <meta name="description" content="100% Free Auto AI Voice Enhancer and Studio Audio Master Tool. Transform raw voice recordings for Katha, Biography, Ads, Motivational & Horror videos.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <style>
+        .tool-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+        .preset-card {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .preset-card:hover, .preset-card.active {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+        }
+        .preset-card.active {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+        .preset-icon {
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+        .preset-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .preset-subtitle {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .audio-player-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .ab-btn {
+            background: #334155;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .ab-btn.active {
+            background: #10b981;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); background: #0f172a;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #38bdf8;">CreatorsFree.in ⚡</a>
+            <a href="index.html" class="btn-secondary" style="font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 950px; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+            <span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;">🎙️ AUTO AI VOICE MASTERING</span>
+            <h1 style="font-size: 2.2rem; font-weight: 900; color: #ffffff; margin-top: 10px;">Auto Voice Studio Master</h1>
+            <p style="color: #94a3b8; font-size: 1.05rem;">Upload raw human voice recording and automatically apply studio EQ, compression, pitch & reverb tailored for your video style.</p>
+        </div>
+
+        <div class="tool-card">
+            <!-- Step 1: File Upload -->
+            <div style="margin-bottom: 25px;">
+                <label style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: block; margin-bottom: 8px;">1. Upload Raw Human Audio (.mp3, .wav, .m4a):</label>
+                <input type="file" id="audioUpload" accept="audio/*" onchange="handleAudioUpload(event)" style="color: #cbd5e1; background: #0f172a; padding: 12px; border-radius: 10px; border: 1px solid #334155; width: 100%;">
+            </div>
+
+            <!-- Step 2: Choose Video Style Preset -->
+            <div style="margin-bottom: 20px;">
+                <label style="font-weight: 800; font-size: 1.05rem; color: #ffffff; display: block; margin-bottom: 12px;">2. Select Video Style / Niche:</label>
+                <div class="preset-grid">
+                    <div class="preset-card active" onclick="selectPreset('katha', this)">
+                        <div class="preset-icon">📜</div>
+                        <div class="preset-title">Katha / Devotional</div>
+                        <div class="preset-subtitle">Warm Bass + Hall Reverb</div>
+                    </div>
+
+                    <div class="preset-card" onclick="selectPreset('biography', this)">
+                        <div class="preset-icon">🎙️</div>
+                        <div class="preset-title">Biography / Docu</div>
+                        <div class="preset-subtitle">Broadcast Vocal Clarity</div>
+                    </div>
+
+                    <div class="preset-card" onclick="selectPreset('ad', this)">
+                        <div class="preset-icon">📢</div>
+                        <div class="preset-title">Ad / Commercial</div>
+                        <div class="preset-subtitle">Punchy & Max Loudness</div>
+                    </div>
+
+                    <div class="preset-card" onclick="selectPreset('motivational', this)">
+                        <div class="preset-icon">🔥</div>
+                        <div class="preset-title">Motivational / Podcast</div>
+                        <div class="preset-subtitle">Deep Chest Warmth</div>
+                    </div>
+
+                    <div class="preset-card" onclick="selectPreset('horror', this)">
+                        <div class="preset-icon">👻</div>
+                        <div class="preset-title">Horror / Mystery</div>
+                        <div class="preset-subtitle">Sub-Bass & Eerie Echo</div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="masterAudio()" id="btnProcess" class="btn" style="width: 100%; text-align: center; background: linear-gradient(135deg, #7e22ce, #c084fc); color: #fff; font-weight: 900; border: none; font-size: 1.1rem; padding: 14px 0; border-radius: 12px; cursor: pointer;">✨ Auto-Master Audio Now</button>
+
+            <!-- Audio Player & A/B Comparison -->
+            <div id="playerSection" class="audio-player-box" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <span style="color: #10b981; font-weight: 800; font-size: 1.1rem;">✅ Mastered Studio Audio Ready!</span>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin: 4px 0 0 0;">Compare original vs mastered studio sound below.</p>
+                    </div>
+
+                    <div style="display: flex; gap: 8px;">
+                        <button id="btnRaw" class="ab-btn" onclick="toggleAB('raw')">Original Raw Audio</button>
+                        <button id="btnMastered" class="ab-btn active" onclick="toggleAB('mastered')">✨ Mastered Audio</button>
+                    </div>
+                </div>
+
+                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 16px;"></audio>
+
+                <button onclick="downloadMasteredWAV()" class="btn" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; border: none; padding: 12px 24px; border-radius: 10px;">⬇️ Download Studio Master WAV</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let audioCtx = null;
+        let originalBuffer = null;
+        let processedBuffer = null;
+        let selectedPreset = 'katha';
+        let rawAudioUrl = null;
+        let masteredAudioUrl = null;
+
+        function selectPreset(preset, el) {
+            selectedPreset = preset;
+            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function handleAudioUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            rawAudioUrl = URL.createObjectURL(file);
+            const reader = new FileReader();
+
+            reader.onload = function(evt) {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                audioCtx.decodeAudioData(evt.target.result, function(buffer) {
+                    originalBuffer = buffer;
+                    alert('Audio loaded successfully! Select a preset and click "Auto-Master Audio Now".');
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        async function masterAudio() {
+            if (!originalBuffer) return alert('Kripya pehle raw audio file upload karein!');
+
+            document.getElementById('btnProcess').innerText = '⏳ Processing Studio Mastering...';
+
+            const offlineCtx = new OfflineAudioContext(
+                originalBuffer.numberOfChannels,
+                originalBuffer.length,
+                originalBuffer.sampleRate
+            );
+
+            const source = offlineCtx.createBufferSource();
+            source.buffer = originalBuffer;
+
+            // DSP Node Chain
+            const highpass = offlineCtx.createBiquadFilter();
+            highpass.type = 'highpass';
+
+            const bassEq = offlineCtx.createBiquadFilter();
+            bassEq.type = 'lowshelf';
+
+            const midEq = offlineCtx.createBiquadFilter();
+            midEq.type = 'peaking';
+
+            const trebleEq = offlineCtx.createBiquadFilter();
+            trebleEq.type = 'highshelf';
+
+            const compressor = offlineCtx.createDynamicsCompressor();
+            const gainNode = offlineCtx.createGain();
+
+            // Preset DSP configurations
+            if (selectedPreset === 'katha') {
+                highpass.frequency.value = 60;
+                bassEq.frequency.value = 140;
+                bassEq.gain.value = 5.5; // Deep warm bass
+                midEq.frequency.value = 1000;
+                midEq.gain.value = 2.0;
+                trebleEq.frequency.value = 6000;
+                trebleEq.gain.value = 1.5;
+                compressor.threshold.value = -18;
+                compressor.ratio.value = 3.5;
+                gainNode.gain.value = 1.3;
+            } else if (selectedPreset === 'biography') {
+                highpass.frequency.value = 90; // Cut low rumble
+                bassEq.frequency.value = 200;
+                bassEq.gain.value = 2.0;
+                midEq.frequency.value = 3200; // Broadcast vocal clarity
+                midEq.gain.value = 4.5;
+                trebleEq.frequency.value = 8000;
+                trebleEq.gain.value = 3.0;
+                compressor.threshold.value = -16;
+                compressor.ratio.value = 4.0;
+                gainNode.gain.value = 1.4;
+            } else if (selectedPreset === 'ad') {
+                highpass.frequency.value = 100;
+                bassEq.frequency.value = 250;
+                bassEq.gain.value = 1.5;
+                midEq.frequency.value = 2500;
+                midEq.gain.value = 5.0;
+                trebleEq.frequency.value = 10000;
+                trebleEq.gain.value = 6.0; // Bright punchy commercial
+                compressor.threshold.value = -12;
+                compressor.ratio.value = 6.0;
+                gainNode.gain.value = 1.7; // Maximum loudness
+            } else if (selectedPreset === 'motivational') {
+                highpass.frequency.value = 70;
+                bassEq.frequency.value = 120;
+                bassEq.gain.value = 6.5; // Heavy chest warmth
+                midEq.frequency.value = 4000;
+                midEq.gain.value = 3.5;
+                trebleEq.frequency.value = 8000;
+                trebleEq.gain.value = 2.0;
+                compressor.threshold.value = -14;
+                compressor.ratio.value = 5.0;
+                gainNode.gain.value = 1.5;
+            } else if (selectedPreset === 'horror') {
+                highpass.frequency.value = 40;
+                bassEq.frequency.value = 100;
+                bassEq.gain.value = 7.0; // Sub bass
+                midEq.frequency.value = 1500;
+                midEq.gain.value = -4.0; // Dark voice
+                trebleEq.frequency.value = 4000;
+                trebleEq.gain.value = -6.0;
+                compressor.threshold.value = -20;
+                compressor.ratio.value = 3.0;
+                gainNode.gain.value = 1.2;
+            }
+
+            // Connect Chain
+            source.connect(highpass);
+            highpass.connect(bassEq);
+            bassEq.connect(midEq);
+            midEq.connect(trebleEq);
+            trebleEq.connect(compressor);
+            compressor.connect(gainNode);
+            gainNode.connect(offlineCtx.destination);
+
+            source.start(0);
+
+            processedBuffer = await offlineCtx.startRendering();
+
+            // Export to WAV Blob
+            const wavBlob = audioBufferToWav(processedBuffer);
+            masteredAudioUrl = URL.createObjectURL(wavBlob);
+
+            document.getElementById('btnProcess').innerText = '✨ Auto-Master Audio Now';
+            document.getElementById('playerSection').style.display = 'block';
+
+            toggleAB('mastered');
+        }
+
+        function toggleAB(mode) {
+            const player = document.getElementById('audioPlayer');
+            const btnR = document.getElementById('btnRaw');
+            const btnM = document.getElementById('btnMastered');
+
+            if (mode === 'raw') {
+                player.src = rawAudioUrl;
+                btnR.classList.add('active');
+                btnM.classList.remove('active');
+            } else {
+                player.src = masteredAudioUrl;
+                btnM.classList.add('active');
+                btnR.classList.remove('active');
+            }
+            player.play();
+        }
+
+        function downloadMasteredWAV() {
+            if (!masteredAudioUrl) return;
+            const a = document.createElement('a');
+            a.href = masteredAudioUrl;
+            a.download = `creatorsfree_mastered_${selectedPreset}.wav`;
+            a.click();
+        }
+
+        // Inline AudioBuffer to WAV Exporter
+        function audioBufferToWav(buffer) {
+            const numOfChan = buffer.numberOfChannels;
+            const length = buffer.length * numOfChan * 2 + 44;
+            const out = new DataView(new ArrayBuffer(length));
+            let channels = [], sampleRate = buffer.sampleRate, offset = 0, pos = 0;
+
+            function writeString(str) {
+                for (let i = 0; i < str.length; i++) out.setUint8(pos++, str.charCodeAt(i));
+            }
+            function write16(val) {
+                out.setUint16(pos, val, true); pos += 2;
+            }
+            function write32(val) {
+                out.setUint32(pos, val, true); pos += 4;
+            }
+
+            writeString('RIFF');
+            write32(length - 8);
+            writeString('WAVEfmt ');
+            write32(16);
+            write16(1);
+            write16(numOfChan);
+            write32(sampleRate);
+            write32(sampleRate * 2 * numOfChan);
+            write16(numOfChan * 2);
+            write16(16);
+            writeString('data');
+            write32(length - pos - 4);
+
+            for (let i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
+
+            while (offset < buffer.length) {
+                for (let i = 0; i < numOfChan; i++) {
+                    let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767) | 0;
+                    out.setInt16(pos, sample, true);
+                    pos += 2;
+                }
+                offset++;
+            }
+            return new Blob([out], { type: 'audio/wav' });
+        }
+    </script>
+</body>
+</html>
